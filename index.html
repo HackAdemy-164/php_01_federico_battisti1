@@ -1,0 +1,65 @@
+<!-- <?php -->
+<!-- $username = 'Federico'; questa è una variabile, il punto  virgola è obbligatorio sono accetati numeri e underscore -->
+<!-- i numeri non possono essere di apertura o chiusura, l'underscore può -->
+
+<!-- //! sbagliati -->
+$1username, $user!name, $user-name, $user name, $user@name, $user#name, $user%name, $user^name, $user&name, $user*name, $user(name), $user)name, $user{name}, $user}name, $user[name], $user]name, $user|name, $user\name, $user/name, $username?
+
+<!-- //* giusti -->
+$username, $user_name, $userName, $userName1, $userName_1, $userName_1_2, $userName1234567890, $_username, $_user_name, $_user_name_1, $_user_name_1_2, $_user_name1234567890
+
+<!-- le variabili sono scope locali, mai globali -->
+
+<!-- abbiamo anche le costanti in php -->
+const USERNAME = 'Federico'; // non possono essere modificate, sono scritte in maiuscolo per convenzione
+<!-- esiste anche un vecchio metodo define (USERNAME, Federico) -->
+
+<!-- le variabili hanno tipizzazione debole, ovvero può mutare nel tempo -->
+
+<!-- in php il tag di apertura è obbligatorio mentre quello di chiusura no, solo se sto in un file con estensione .php -->
+
+<!-- 8 tipi di dato: predefiniti, composti o user defined, speciali -->
+
+<!-- predefiniti o primitivi: sono i tipi di dato che il linguaggio implementa in maniera nativa Integer: numeri interi. Float: numeri decimali. Booleani, stringhe -->
+
+<!-- differenza tra singolo o doppio apice: -->
+
+<!-- si usa echo per stampare qualcosa nella console, lo leggo nel terminale scrivendo php e poi il nome del file -->
+\serve per considerare il carattere successivo come normale, non come un carattere speciale, ad esempio per le virgolette o per le variabili, chiamato escape character
+
+.$name serve per concatenare le stringhe, il punto è l'operatore di concatenazione, non serve il + come in altri linguaggi
+
+per mandare a capo si usa \n, per il tab \t, per il ritorno a capo \r, per il backslash \\
+
+echo "Ciao $name, benvenuto in $site_name\n"; // con le virgolette doppie, le variabili vengono interpretate
+
+tipi di dato composti: array, oggetti, callable, iterable, generator, resource
+tipi di dato che scriviamo noi programmatori.
+
+array: è tipo di dato array, non oggetto come js, array omogenei: ['a', 'b', 'c'], array eterogenei: ['a', 1, true, 1.5]. hanno anche loro un vecchio modo di scriverli con il metodo array().anche in php il primo indice che troviamo è 0
+
+echo stampa solo i dati predefiniti, non gli array, per stampare gli array si usa print_r($array) o var_dump($array), var_dump stampa anche il tipo di dato e la lunghezza dell'array
+print_r($array) stampa solo il contenuto dell'array, non il tipo di dato e la lunghezza
+
+array associativi: sono array in cui l'indice è una stringa, ad esempio $array = ['nome' => 'Federico', 'cognome' => 'Rossi', 'eta' => 30]; per accedere all'elemento si usa $array['nome']
+
+operatrori matematici: +, -, *, /, %, ** (esponenziale), ++ (incremento), -- (decremento), +=, -=, *=, /=, %=, **=
+// gli operatori di incremento e decremento possono essere sia prefissi che suffissi, ++$a o $a++, --$a o $a--, il primo incrementa prima e poi restituisce il valore, il secondo restituisce il valore e poi incrementa
+operatori di confronto: ==, === (identico), !=, !== (non identico), <, >, <=, >=, <=> (spaceship operator, restituisce -1 se il primo è minore del secondo, 0 se sono uguali e 1 se il primo è maggiore del secondo)
+operatori logici: &&, ||, !, xor (restituisce true se uno dei due è true ma non entrambi non come js che restituisce il valore, trasforma in booleano)  
+! è un bang operator ovvero inverte il risultato, se è true diventa false e viceversa
+
+con la sequenza il codice viene eseguito riga dopo riga
+con la selezione il codice viene eseguito in base a una condizione, se è vera esegue una parte di codice, altrimenti un'altra parte di codice
+if ($a == $b) { echo 'a è uguale a b'; } elseif ($a > $b) { echo 'a è maggiore di b'; } else { echo 'a è minore di b'; }
+switch serve per confrontare più condizioni, è come un if ma più semplice da leggere, non serve il break come in js, se non lo metti continua a eseguire il codice anche se trova una condizione vera
+iterazioni o cicli: for, while, do while, foreach (solo per gli array)
+for: quando sappiamo il numero preciso di iterazioni da fare, ad esempio per ($i = 0; $i < 10; $i++) { echo $i; }
+foreach: sintassi giusta per gli array, foreach ($array as $key => $value) { echo $key . ' => ' . $value; } // per stampare l'array associativo
+as: keyword per associare la chiave al valore, => è l'operatore di associazione, $key è la chiave e $value è il valore
+per stampare un array in una stringa uso implode, implode(',', $array) // implode è una funzione che unisce gli elementi di un array in una stringa, il primo parametro è il separatore e il secondo è l'array
+// explode è l'opposto di implode, separa una stringa in un array, explode(',', $string) // il primo parametro è il separatore e il secondo è la stringa
+
+
+<!-- ?> -->
+<!-- tag apertura e chiusura di php -->
