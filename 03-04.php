@@ -116,70 +116,76 @@ if ($firstRule && $secondRule && $thirdRule && $fourthRule) {
     echo "La password non è valida\n";
 }
 
+// Rivedere la lezione
+
+// Ripetere l’esercizio del controllo password visto a lezione (prima da soli e poi rivedendo la lezione o il video selfwork).
+// Implementare un metodo che faccia reinserire la password qualora anche una delle regole non fosse rispettata e che, invece, lo interrompa in caso di password accettata.
+// visualizzare in console quale regola non è stata rispettata.
+
 // prima prova con do while
-
-// do {
-//     $password = readline("Inserisci la password: ");
-
-//     $firstRule = strlen($password) >= 8;
-//     if (!$firstRule) {
-//         echo "La password deve essere lunga almeno 8 caratteri\n";
-//     }
-
-//     $secondRule = false;
-//     for ($i = 0; $i < strlen($password); $i++) {
-//         if (is_numeric($password[$i])) {
-//             $secondRule = true;
-//             break;
-//         }
-//     }
-//     if (!$secondRule) {
-//         echo "La password deve contenere almeno un numero\n";
-//     }
-
-//     $thirdRule = false;
-//     for ($i = 0; $i < strlen($password); $i++) {
-//         if (ctype_upper($password[$i])) {
-//             $thirdRule = true;
-//             break;
-//         }
-//     }
-//     if (!$thirdRule) {
-//         echo "La password deve contenere almeno una lettera maiuscola\n";
-//     }
-
-//     $specialChars = ['!', '@', '#', '$', '%', '^', '&', '*'];
-//     $fourthRule = false;
-//     for ($i = 0; $i < strlen($password); $i++) {
-//         if (in_array($password[$i], $specialChars)) {
-//             $fourthRule = true;
-//             break;
-//         }
-//     }
-//     if (!$fourthRule) {
-//         echo "La password deve contenere almeno un carattere speciale (!@#$%^&*)\n";
-//     }
-
-//     if ($firstRule && $secondRule && $thirdRule && $fourthRule) {
-//         echo "La password è valida\n";
-//         break; // Esce dal ciclo se la password è valida
-//     } else {
-//         echo "La password non è valida. Riprova.\n";
-//     }
-// } while (true);
-
-// seconda prova con do while e il preg_match
 
 do {
     $password = readline("Inserisci la password: ");
-    if (!preg_match('/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/', $password)) {
-        echo "La password non è valida. Deve rispettare le seguenti regole:\n";
-        echo "- Deve essere lunga almeno 8 caratteri\n";
-        echo "- Deve contenere almeno una lettera maiuscola\n";
-        echo "- Deve contenere almeno un numero\n";
-        echo "- Deve contenere almeno un carattere speciale (!@#$%^&*)\n";
-    } else {
+
+    $firstRule = strlen($password) >= 8;
+    if (!$firstRule) {
+        echo "La password deve essere lunga almeno 8 caratteri\n";
+    }
+
+    $secondRule = false;
+    for ($i = 0; $i < strlen($password); $i++) {
+        if (is_numeric($password[$i])) {
+            $secondRule = true;
+            break;
+        }
+    }
+    if (!$secondRule) {
+        echo "La password deve contenere almeno un numero\n";
+    }
+
+    $thirdRule = false;
+    for ($i = 0; $i < strlen($password); $i++) {
+        if (ctype_upper($password[$i])) {
+            $thirdRule = true;
+            break;
+        }
+    }
+    if (!$thirdRule) {
+        echo "La password deve contenere almeno una lettera maiuscola\n";
+    }
+
+    $specialChars = ['!', '@', '#', '$', '%', '^', '&', '*'];
+    $fourthRule = false;
+    for ($i = 0; $i < strlen($password); $i++) {
+        if (in_array($password[$i], $specialChars)) {
+            $fourthRule = true;
+            break;
+        }
+    }
+    if (!$fourthRule) {
+        echo "La password deve contenere almeno un carattere speciale (!@#$%^&*)\n";
+    }
+
+    if ($firstRule && $secondRule && $thirdRule && $fourthRule) {
         echo "La password è valida\n";
         break; // Esce dal ciclo se la password è valida
+    } else {
+        echo "La password non è valida. Riprova.\n";
     }
 } while (true);
+
+// seconda prova con do while e il preg_match
+
+// do {
+//     $password = readline("Inserisci la password: ");
+//     if (!preg_match('/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/', $password)) {
+//         echo "La password non è valida. Deve rispettare le seguenti regole:\n";
+//         echo "- Deve essere lunga almeno 8 caratteri\n";
+//         echo "- Deve contenere almeno una lettera maiuscola\n";
+//         echo "- Deve contenere almeno un numero\n";
+//         echo "- Deve contenere almeno un carattere speciale (!@#$%^&*)\n";
+//     } else {
+//         echo "La password è valida\n";
+        // break; // Esce dal ciclo se la password è valida
+//     }
+// } while (true);

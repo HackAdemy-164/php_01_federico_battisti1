@@ -22,7 +22,7 @@ function gioca() {
         if (!is_numeric($input)) {
             echo "Per favore, inserisci un numero valido.\n";
             continue; // Salta il resto del ciclo e richiede un nuovo input
-        }
+        } 
 
         $numeroUtente = (int)$input; // Converte l'input in un numero intero
         $tentativi--; // Decrementa il numero di tentativi rimasti
