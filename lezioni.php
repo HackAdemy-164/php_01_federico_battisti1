@@ -157,29 +157,29 @@
 // 3. Deve contenere almeno una lettera maiuscola
 // 4. Deve contenere almeno un carattere speciale (!@#$%^&*)
 
-$firstRule = false; // se la regola sarà rispettata, il valore sarà true
-$secondRule = false;
-$thirdRule = false;
-$fourthRule = false;
+// $firstRule = false; // se la regola sarà rispettata, il valore sarà true
+// $secondRule = false;
+// $thirdRule = false;
+// $fourthRule = false;
 
 // prendiamo la password inserita dall'utente
-$password = readline("Inserisci la password: ");
+// $password = readline("Inserisci la password: ");
 // la funzione readline legge una riga di input dall'utente, il valore inserito viene salvato nella variabile $password
 // echo "La password inserita è: $password\n";
 // var_dump(strlen($password));
 // prima regola: lunghezza minima 8 caratteri
 
-if (strlen($password) >= 8) {
-    $firstRule = true;
-}
+// if (strlen($password) >= 8) {
+//     $firstRule = true;
+// }
 
 // seconda regola: deve contenere almeno un numero
 
-for ($i = 0; $i < strlen($password); $i++) {
-    if (is_numeric($password[$i])) {
-        $secondRule = true;
-    }
-}
+// for ($i = 0; $i < strlen($password); $i++) {
+//     if (is_numeric($password[$i])) {
+//         $secondRule = true;
+//     }
+// }
 
 // if (preg_match('/[0-9]/', $password)) {
 //     $secondRule = true;
@@ -189,20 +189,100 @@ for ($i = 0; $i < strlen($password); $i++) {
 
 // terza regola: deve contenere almeno una lettera maiuscola
 
-for ($i = 0; $i < strlen($password); $i++) {
-    if (ctype_upper($password[$i])) {
-        $thirdRule = true;
-    }
-}
+// for ($i = 0; $i < strlen($password); $i++) {
+//     if (ctype_upper($password[$i])) {
+//         $thirdRule = true;
+//     }
+// }
 
 // quarta regola: deve contenere almeno un carattere speciale (!@#$%^&*)
 
-$specialChars = ['!','@','#','$','%','^','&','*'];
+// $specialChars = ['!','@','#','$','%','^','&','*'];
 
-for ($i = 0; $i < strlen($password); $i++) {
-    if (in_array($password[$i], $specialChars)) {
-        $fourthRule = true;
+// for ($i = 0; $i < strlen($password); $i++) {
+//     if (in_array($password[$i], $specialChars)) {
+//         $fourthRule = true;
+//     }
+// }
+
+// OOP - Object Oriented Programming, programmazione orientata agli oggetti, paradigma di progettazione che si basa sui concetti di classe e oggetto.
+// classe: modello che rappresenta un'entità reale.
+
+// $person = [
+//     'name' => 'Mario',
+//     'surname' => 'Rossi',
+//     'age' => 25,
+// ];
+
+// $person2 = [
+//     'name' => 'Luigi',
+//     'surname' => 'Verdi',
+//     'age' => 30,
+//     'city' => 'Milano',
+// ];
+
+// $person3 = [
+//     'name' => 'Anna',
+//     'surname' => 'Bianchi',
+//     'age' => 24,
+//     'city' => 'Roma',
+//     'job' => 'Infermiera',
+// ];
+
+// function printPerson($persona) {
+//     foreach ($persona as $key => $property) {
+//         echo "$key: $property\n";
+//     }
+// }
+
+// printPerson($person);
+// printPerson($person2);
+// printPerson($person3);
+
+// lezione 07.04
+
+// creare una classe: keyword class, nome della classe con lettera maiuscola e al singolare, parentesi graffe
+
+class Person {
+    // attributi: caratteristiche comuni
+
+    public $name;
+    public $surname;
+    public $age;
+    // per metodi statici usiamo la keyword static, per accedere a questi metodi usiamo la keyword self:: e non $this->
+    public static $counter = 0;
+
+    // metotodo costruttore: permette di generare un oggetto di questa classe, keyword public, function __construct, nome obbligatorio dato da php
+    public function __construct($nome, $cognome, $età) {
+        // codice per inizializzare gli attributi
+        $this->name = $nome; // $this è una variabile speciale che fa riferimento all'oggetto corrente, pseudo-variabile
+        $this->surname = $cognome;
+        $this->age = $età;
+        // $this->introduceYou(); // chiamiamo il metodo introduceYou all'interno del costruttore, così quando creiamo un oggetto di questa classe viene eseguito automaticamente
+        self::$counter++; // incrementiamo il contatore statico ogni volta che creiamo un oggetto di questa classe
+    }
+    // metodi: azioni comuni
+    public function introduceYou() {
+        // codice per presentarsi
+        echo "Ciao, sono $this->name $this->surname e ho $this->age anni.\n";
+    }
+
+    public static function howManyPeople() {
+        echo "Hai creato". " " . self::$counter . " " . "persone\n" ; // restituiamo il valore del contatore statico
     }
 }
+
+echo Person::$counter . "\n"; // accediamo all'attributo statico counter della classe Person prima di creare oggetti
+// instanziare un oggetto: keyword new, nome della classe, parentesi tonde, passiamo i parametri al costruttore
+$person1 = new Person('Mario', 'Rossi', 25);
+// var_dump($person1); // stampa l'oggetto creato, vediamo gli attributi e i metodi disponibili
+$person2 = new Person('Luigi', 'Verdi', 30);
+$person3 = new Person('Anna', 'Bianchi', 24);
+// echo $person1->name . "\n"; // accediamo all'attributo name dell'oggetto person1
+// $person1->introduceYou(); // chiamiamo il metodo introduceYou dell'oggetto person1
+// attributi e metodi statici: li usiamo principalmente per i conteggi
+echo $person1::$counter . "\n"; // accediamo all'attributo statico counter della classe Person, non dell'oggetto
+// echo $person1->counter . "\n"; // non possiamo accedere all'attributo statico counter dell'oggetto person1, dobbiamo usare la classe Person
+Person::howManyPeople(); // chiamiamo il metodo statico howManyPeople della classe Person, non dell'oggetto
 
 ?>
