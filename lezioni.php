@@ -243,46 +243,129 @@
 
 // creare una classe: keyword class, nome della classe con lettera maiuscola e al singolare, parentesi graffe
 
-class Person {
-    // attributi: caratteristiche comuni
+// class Person {
+//     // attributi: caratteristiche comuni
 
-    public $name;
-    public $surname;
-    public $age;
-    // per metodi statici usiamo la keyword static, per accedere a questi metodi usiamo la keyword self:: e non $this->
-    public static $counter = 0;
+//     public $name;
+//     public $surname;
+//     public $age;
+//     // per metodi statici usiamo la keyword static, per accedere a questi metodi usiamo la keyword self:: e non $this->
+//     public static $counter = 0;
 
-    // metotodo costruttore: permette di generare un oggetto di questa classe, keyword public, function __construct, nome obbligatorio dato da php
-    public function __construct($nome, $cognome, $età) {
-        // codice per inizializzare gli attributi
-        $this->name = $nome; // $this è una variabile speciale che fa riferimento all'oggetto corrente, pseudo-variabile
-        $this->surname = $cognome;
-        $this->age = $età;
-        // $this->introduceYou(); // chiamiamo il metodo introduceYou all'interno del costruttore, così quando creiamo un oggetto di questa classe viene eseguito automaticamente
-        self::$counter++; // incrementiamo il contatore statico ogni volta che creiamo un oggetto di questa classe
-    }
-    // metodi: azioni comuni
-    public function introduceYou() {
-        // codice per presentarsi
-        echo "Ciao, sono $this->name $this->surname e ho $this->age anni.\n";
-    }
+//     // metotodo costruttore: permette di generare un oggetto di questa classe, keyword public, function __construct, nome obbligatorio dato da php
+//     public function __construct($nome, $cognome, $età) {
+//         // codice per inizializzare gli attributi
+//         $this->name = $nome; // $this è una variabile speciale che fa riferimento all'oggetto corrente, pseudo-variabile
+//         $this->surname = $cognome;
+//         $this->age = $età;
+//         // $this->introduceYou(); // chiamiamo il metodo introduceYou all'interno del costruttore, così quando creiamo un oggetto di questa classe viene eseguito automaticamente
+//         self::$counter++; // incrementiamo il contatore statico ogni volta che creiamo un oggetto di questa classe
+//     }
+//     // metodi: azioni comuni
+//     public function introduceYou() {
+//         // codice per presentarsi
+//         echo "Ciao, sono $this->name $this->surname e ho $this->age anni.\n";
+//     }
 
-    public static function howManyPeople() {
-        echo "Hai creato". " " . self::$counter . " " . "persone\n" ; // restituiamo il valore del contatore statico
+//     public static function howManyPeople() {
+//         echo "Hai creato". " " . self::$counter . " " . "persone\n" ; // restituiamo il valore del contatore statico
+//     }
+// }
+
+// echo Person::$counter . "\n"; // accediamo all'attributo statico counter della classe Person prima di creare oggetti
+// // instanziare un oggetto: keyword new, nome della classe, parentesi tonde, passiamo i parametri al costruttore
+// $person1 = new Person('Mario', 'Rossi', 25);
+// // var_dump($person1); // stampa l'oggetto creato, vediamo gli attributi e i metodi disponibili
+// $person2 = new Person('Luigi', 'Verdi', 30);
+// $person3 = new Person('Anna', 'Bianchi', 24);
+// // echo $person1->name . "\n"; // accediamo all'attributo name dell'oggetto person1
+// // $person1->introduceYou(); // chiamiamo il metodo introduceYou dell'oggetto person1
+// // attributi e metodi statici: li usiamo principalmente per i conteggi
+// echo $person1::$counter . "\n"; // accediamo all'attributo statico counter della classe Person, non dell'oggetto
+// // echo $person1->counter . "\n"; // non possiamo accedere all'attributo statico counter dell'oggetto person1, dobbiamo usare la classe Person
+// Person::howManyPeople(); // chiamiamo il metodo statico howManyPeople della classe Person, non dell'oggetto
+
+// lezione 08.04
+
+// classi astratte: rende generica una classe e non si potrà più istanziare, ma solo estendere. 
+
+// trait servono per riutilizzare parti di codice in classi distinte e separate tra loro
+
+trait Life {
+    public function eat(){
+        echo "mangio\n";
     }
 }
 
-echo Person::$counter . "\n"; // accediamo all'attributo statico counter della classe Person prima di creare oggetti
-// instanziare un oggetto: keyword new, nome della classe, parentesi tonde, passiamo i parametri al costruttore
-$person1 = new Person('Mario', 'Rossi', 25);
-// var_dump($person1); // stampa l'oggetto creato, vediamo gli attributi e i metodi disponibili
-$person2 = new Person('Luigi', 'Verdi', 30);
-$person3 = new Person('Anna', 'Bianchi', 24);
-// echo $person1->name . "\n"; // accediamo all'attributo name dell'oggetto person1
-// $person1->introduceYou(); // chiamiamo il metodo introduceYou dell'oggetto person1
-// attributi e metodi statici: li usiamo principalmente per i conteggi
-echo $person1::$counter . "\n"; // accediamo all'attributo statico counter della classe Person, non dell'oggetto
-// echo $person1->counter . "\n"; // non possiamo accedere all'attributo statico counter dell'oggetto person1, dobbiamo usare la classe Person
-Person::howManyPeople(); // chiamiamo il metodo statico howManyPeople della classe Person, non dell'oggetto
+abstract class Person {
+    public $name;
+    public $surname;
+    public $age;
+
+    public function __construct($nome, $cognome, $età) {
+        $this->name = $nome; 
+        $this->surname = $cognome;
+        $this->age = $età;
+    }
+
+    // public function presentati() {
+    //     echo "Ciao, sono $this->name $this->surname e ho $this->age anni.\n";
+    // }
+    // metodo astratto: si scrive mettendo prima la parola abstract al resto, tutte le classi figlie devono avere quella classe al loro interno
+    abstract public function presentati();
+}
+
+class Student extends Person {
+
+    use Life; // usiamo il trait Life nella classe Student, in questo modo possiamo usare il metodo eat della classe Life
+    public $avg;
+
+    public function __construct($nome, $cognome, $età, $media) {
+        parent::__construct($nome, $cognome, $età); // chiamiamo il costruttore della classe padre
+        $this->avg = $media;
+    }
+
+    public function presentati() {
+            echo "Ciao, sono $this->name $this->surname, ho $this->age anni e sono uno studente con la media del $this->avg.\n";
+        }
+}
+
+class Teacher extends Person {
+    public $salary;
+
+    public function __construct($nome, $cognome, $età, $stipendio) {
+        parent::__construct($nome, $cognome, $età); // chiamiamo il costruttore della classe padre
+        $this->salary = $stipendio;
+    }
+
+    public function presentati() {
+            echo "Ciao, sono $this->name $this->surname, ho $this->age anni e sono un docente con uno stipendio di $this->salary euro.\n";
+        }
+}
+
+class Animal{
+    use Life;
+    public $name;
+
+    public function __construct($nome){
+        $this->name = $nome;
+    }
+}
+
+
+$student1 = new Student('Mario', 'Rossi', 13, 7); // possiamo istanziare la classe Student che estende la classe Person
+// var_dump($student1); // vediamo gli attributi e i metodi disponibili
+// $teacher1 = new Teacher('Luigi', 'Verdi', 30, 1400); // possiamo istanziare la classe Teacher che estende la classe Person
+// var_dump($teacher1); // vediamo gli attributi e i metodi disponibili
+// $student1->presentati(); // chiamiamo il metodo presentati dell'oggetto student1
+// $teacher1->presentati(); // chiamiamo il metodo presentati dell'oggetto teacher1
+
+$animal1 = new Animal('Rex'); // possiamo istanziare la classe Animal che non estende la classe Person
+var_dump($animal1); // vediamo gli attributi e i metodi disponibili
+
+$student1->eat(); // chiamiamo il metodo eat dell'oggetto student1, che usa il trait Life
+$animal1->eat(); // chiamiamo il metodo eat dell'oggetto animal1, che usa il trait Life
+
+// Non possiamo avere un metodo con asset modifier public nell'astratta e nella classe figlia protected o private, altrimenti ci da errore direttamente nel codice. Posso definire un metodo astratto solo in una classe astratta, non nelle classi figlie.
 
 ?>
